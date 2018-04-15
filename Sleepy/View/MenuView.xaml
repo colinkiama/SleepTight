@@ -10,12 +10,69 @@
     <Grid Background="Transparent"
            Margin="0,80,0,0">
         <StackPanel>
+            <StackPanel.Resources>
+                <Style x:Key="ButtonRoundedStyle" TargetType="Button">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="RootBorder" CornerRadius="10" Background="{TemplateBinding Background}">
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup x:Name="CommonStates">
+                                            <VisualState x:Name="Normal">
+                                                <Storyboard>
+                                                    <PointerUpThemeAnimation Storyboard.TargetName="RootBorder"/>
+                                                </Storyboard>
+                                            </VisualState>
+                                            <VisualState x:Name="PointerOver">
+                                                <VisualState.Setters>
+                                                    <Setter Target="OverlayBorder.(Border.Background)" Value="{ThemeResource SystemControlHighlightListMediumBrush}"/>
+                                                </VisualState.Setters>
+                                                <Storyboard>
+                                                    <PointerUpThemeAnimation Storyboard.TargetName="RootBorder"/>
+                                                </Storyboard>
+                                            </VisualState>
+                                            <VisualState x:Name="Pressed">
+                                                <VisualState.Setters>
+                                                    <Setter Target="OverlayBorder.(Border.Background)" Value="{ThemeResource SystemControlBackgroundBaseMediumBrush}"/>
+                                                </VisualState.Setters>
+                                                <Storyboard>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ContentPresenter">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBorderBrushPressed}"/>
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                    <PointerDownThemeAnimation Storyboard.TargetName="RootBorder"/>
+                                                </Storyboard>
+                                            </VisualState>
+                                            <VisualState x:Name="Disabled">
+                                                <VisualState.Setters>
+                                                    <Setter Target="OverlayBorder.(Border.Background)" Value="{ThemeResource SystemControlDisabledChromeDisabledLowBrush}"/>
+                                                </VisualState.Setters>
+                                                <Storyboard>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ContentPresenter">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBorderBrushDisabled}"/>
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonForegroundDisabled}"/>
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                </Storyboard>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+                                    <Border x:Name="OverlayBorder" CornerRadius="10">
+                                        <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" Foreground="White" Margin="15,3"/>
+                                    </Border>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </StackPanel.Resources>
             <Button Content="Good Night"
                 Background="#222222"
                     HorizontalAlignment="Center"
-                    Width="300"
+                   Width="200"
                     Height="50"
-                    Margin="20,0"/>
+                    Margin="4,0"
+                    Style="{ThemeResource ButtonRoundedStyle}"/>
             <ListView>
                 <ListView.Resources>
                     <Style TargetType="ListViewItem">
@@ -23,27 +80,6 @@
                             Value="60"/>
                     </Style>
                 </ListView.Resources>
-                <ListViewItem>
-                    Meme
-                </ListViewItem>
-                <ListViewItem>
-                    Meme
-                </ListViewItem>
-                <ListViewItem>
-                    Meme
-                </ListViewItem>
-                <ListViewItem>
-                    Meme
-                </ListViewItem>
-                <ListViewItem>
-                    Meme
-                </ListViewItem>
-                <ListViewItem>
-                    Meme
-                </ListViewItem>
-                <ListViewItem>
-                    Meme
-                </ListViewItem>
             </ListView>
         </StackPanel>
     </Grid>

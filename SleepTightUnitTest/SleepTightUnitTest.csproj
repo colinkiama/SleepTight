@@ -4,21 +4,20 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{FBCB8313-B461-47B1-8AF2-5B95FF6BC640}</ProjectGuid>
+    <ProjectGuid>{5834F5B0-0E23-400B-88E7-A5BC37C8619A}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Sleepy</RootNamespace>
-    <AssemblyName>Sleepy</AssemblyName>
+    <RootNamespace>SleepTightUnitTest</RootNamespace>
+    <AssemblyName>SleepTightUnitTest</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.16299.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
-    <PackageCertificateKeyFile>Sleepy_StoreKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>8DC985FEC7DFE19834C125D11D0C660CCF78A9A6</PackageCertificateThumbprint>
+    <PackageCertificateKeyFile>SleepTightUnitTest_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <UnitTestPlatformVersion Condition="'$(UnitTestPlatformVersion)' == ''">$(VisualStudioVersion)</UnitTestPlatformVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -93,33 +92,29 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Enums\SleepQuality.cs" />
-    <Compile Include="Helpers\SleepHelper.cs" />
-    <Compile Include="Model\Sleep.cs" />
+    <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Shell.xaml.cs">
-      <DependentUpon>Shell.xaml</DependentUpon>
+    <Compile Include="UnitTestApp.xaml.cs">
+      <DependentUpon>UnitTestApp.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\MenuView.xaml.cs">
-      <DependentUpon>MenuView.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="UnitTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="UnitTestApp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="Sleepy_StoreKey.pfx" />
-    <None Include="Sleepy_TemporaryKey.pfx" />
+    <None Include="SleepTightUnitTest_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Package.xml" />
-    <Content Include="Properties\Default.rd.xml" />
+    <Content Include="Properties\UnitTestApp.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
@@ -129,38 +124,18 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.0.8</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Animations">
-      <Version>2.2.0</Version>
+    <PackageReference Include="MSTest.TestAdapter">
+      <Version>1.2.0</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
-      <Version>2.2.0</Version>
+    <PackageReference Include="MSTest.TestFramework">
+      <Version>1.2.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Shell.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\MainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\MenuView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModel\" />
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
