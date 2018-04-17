@@ -54,7 +54,7 @@ namespace Sleepy.Model
         {
             List<Sleep> sleepDataToReturn = new List<Sleep>();
 
-            if (dataToGetSleepDataFrom.Count > 0)
+            if (dataToGetSleepDataFrom != null)
             {
                 foreach (var item in dataToGetSleepDataFrom)
                 {

@@ -25,6 +25,9 @@ namespace Sleepy.View
         public TrackSleepView()
         {
             this.InitializeComponent();
+            
+            
         }
     }
+    
 }

@@ -24,13 +24,24 @@ namespace Sleepy.ViewModel
         {
             // Get "sleeps" from saved list with sleep data
             var loadedSleepData = Sleep.ParseLoadedSleepData(App.fileIOHelper.loadedSaveData);
+            sleeps = new ObservableCollection<Sleep>(loadedSleepData);
+            _currentSleepData = new ObservableCollection<Sleep>();
+            GetSleepDataForWeek();
+            FillCurrentDataWithFakeData();
+        }
+
+        private void FillCurrentDataWithFakeData()
+        {
+            var sleepToAdd = new Sleep(DateTime.Now.AddDays(-1), DateTime.Now, Enums.SleepQuality.ThreeStars, "Testing");
+            _currentSleepData.Clear();
+            _currentSleepData.Add(sleepToAdd);
         }
 
         public ObservableCollection<Sleep> CurrentSleepData
         {
             get
             {
-                return CurrentSleepData;
+                return _currentSleepData;
             }
             set {
                 _currentSleepData = value;
@@ -53,7 +64,51 @@ namespace Sleepy.ViewModel
 
         #region Methods
         //start creating methods that return a list
-        
+        public void GetSleepDataForWeek()
+        {
+            var currentDate = DateTime.Now;
+            var firstDateToView = currentDate.AddDays(-6);
+            var sleepDataForTheWeek = sleeps.Where(p => p.SleepStart >= firstDateToView && p.SleepStart <= currentDate);
+            _currentSleepData.Clear();
+            foreach (var sleepData in sleepDataForTheWeek)
+            {
+                _currentSleepData.Add(sleepData);
+            }
+        }
+
+        public void GetSleepDataForMonth()
+        {
+            var currentDate = DateTime.Now;
+            var firstDateToView = currentDate.AddMonths(-1);
+            var sleepDataForTheWeek = sleeps.Where(p => p.SleepStart >= firstDateToView && p.SleepStart <= currentDate);
+            _currentSleepData.Clear();
+            foreach (var sleepData in sleepDataForTheWeek)
+            {
+                _currentSleepData.Add(sleepData);
+            }
+        }
+
+        public void GetSleepDataForYear()
+        {
+            var currentDate = DateTime.Now;
+            var firstDateToView = currentDate.AddYears(-1);
+            var sleepDataForTheWeek = sleeps.Where(p => p.SleepStart >= firstDateToView && p.SleepStart <= currentDate);
+            _currentSleepData.Clear();
+            foreach (var sleepData in sleepDataForTheWeek)
+            {
+                _currentSleepData.Add(sleepData);
+            }
+        }
+
+        public void GetSleepDataForAllTime()
+        {
+            _currentSleepData.Clear();
+            foreach (var sleepData in sleeps)
+            {
+                _currentSleepData.Add(sleepData);
+            }
+        }
+
         #endregion
 
 

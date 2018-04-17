@@ -5,11 +5,24 @@
     xmlns:local="using:Sleepy.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:telerikChart="using:Telerik.UI.Xaml.Controls.Chart"
+    xmlns:vm="using:Sleepy.ViewModel"
+    xmlns:Charting="using:WinRTXamlToolkit.Controls.DataVisualization.Charting"
     mc:Ignorable="d">
-
-    <Grid Background="#333333}">
-        <TextBlock Text="Go ahead and do something! Track it"
-                   Margin="20"
-                   FontSize="48"/>
+    <Page.Resources>
+        <vm:TrackSleepViewModel x:Name="ViewModel"/>
+    </Page.Resources>
+    <Grid Background="#333333">
+        <Charting:Chart  
+x:Name="ColumnChart"  
+HorizontalAlignment="Left"  
+VerticalAlignment="Top"  
+Margin="0" Width="329" >
+            <Charting:ColumnSeries Margin="0"  
+IndependentValuePath="Name"  
+DependentValuePath="Amount"
+CharacterSpacing="5"  
+IsSelectionEnabled="True"/>
+        </Charting:Chart>
     </Grid>
 </Page>
