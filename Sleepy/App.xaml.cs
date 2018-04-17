@@ -1,8 +1,13 @@
-﻿using System;
+﻿using Mango.App;
+using Sleepy.Helpers;
+using Sleepy.Model;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
@@ -18,6 +23,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+
 namespace Sleepy
 {
     /// <summary>
@@ -29,6 +35,9 @@ namespace Sleepy
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
+        /// 
+
+        public static FileIOHelper fileIOHelper { get; private set; } = new FileIOHelper();
         public App()
         {
             this.InitializeComponent();
@@ -40,9 +49,10 @@ namespace Sleepy
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            SetWindowPreferences();
+            await BeginAppStartup();
+           
             Frame rootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
@@ -75,6 +85,25 @@ namespace Sleepy
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
+        }
+
+        private async Task BeginAppStartup()
+        {
+            SetWindowPreferences();
+            switch (appVersionChecker.getAppVersionStatus())
+            {
+                case Mango.Enums.appVersionStatus.FirstTime:
+                    await fileIOHelper.saveSleepDataAsync(new ObservableCollection<Sleep>());
+                    break;
+                case Mango.Enums.appVersionStatus.Old:
+                case Mango.Enums.appVersionStatus.Current:
+                    await fileIOHelper.loadDataFromFileAsync();
+                    break;
+                default:
+                    break;
+            }
+
+
         }
 
         private void SetWindowPreferences()

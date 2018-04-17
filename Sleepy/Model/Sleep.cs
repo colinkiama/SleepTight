@@ -50,10 +50,32 @@ namespace Sleepy.Model
         #endregion
 
         #region Static Methods
-        public static List<Sleep> GetSleepDataFromString(IList<string> dataToGetSleepDataFrom)
+        public static List<Sleep> ParseLoadedSleepData(IList<string> dataToGetSleepDataFrom)
         {
-            // Turn the list of strings into a list of sleep data
-            List<Sleep> sleepData = new List<Sleep>();
+            List<Sleep> sleepDataToReturn = new List<Sleep>();
+
+            if (dataToGetSleepDataFrom.Count > 0)
+            {
+                foreach (var item in dataToGetSleepDataFrom)
+                {
+                    string[] sleepProperties = item.Split(',');
+                    var sleepToAdd = ParseSleepDataFromString(sleepProperties);
+                    sleepDataToReturn.Add(sleepToAdd);
+                }
+            }
+            
+
+            return sleepDataToReturn;
+        }
+
+        static Sleep ParseSleepDataFromString(string[] sleepProperties)
+        {
+            var sleepStart = DateTime.Parse(sleepProperties[0]);
+            var sleepEnd = DateTime.Parse(sleepProperties[1]);
+            var qualityOfSleep = (SleepQuality)Enum.Parse(typeof(SleepQuality), sleepProperties[2]);
+            var notes = sleepProperties[3];
+            var parsedSleepData = new Sleep(sleepStart, sleepEnd, qualityOfSleep, notes);
+            return parsedSleepData;
         }
         #endregion
     }

@@ -13,10 +13,13 @@ namespace Sleepy.Helpers
     public class FileIOHelper
     {
         #region Fields
-       static StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-       const string saveFileName = "saveData.slp";
+        static StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+        const string saveFileName = "saveData.slp";
         #endregion
 
+        #region Properties
+        public IList<string> loadedSaveData { get; private set; }
+        #endregion
         #region Methods
         public async Task<bool> saveSleepDataAsync(ObservableCollection<Sleep> sleepDataToSave)
         {
@@ -34,11 +37,11 @@ namespace Sleepy.Helpers
 
         private async Task saveDataToFileAsync(string saveFileContent)
         {
-            var sleepFile = await CreateSaveFile();
+            var sleepFile = await CreateSaveFileAsync();
             await FileIO.WriteTextAsync(sleepFile, saveFileContent);
         }
 
-        private async Task<IList<string>> loadDataFromFileAsync()
+        public async Task<IList<string>> loadDataFromFileAsync()
         {
             // read each new line 
             var sleepFile = await GetSaveFileAsync();
@@ -52,13 +55,19 @@ namespace Sleepy.Helpers
             return await localFolder.GetFileAsync(saveFileName);
         }
 
-        private async Task<StorageFile> CreateSaveFile()
+        private async Task<StorageFile> CreateSaveFileAsync()
         {
             return await localFolder.CreateFileAsync(saveFileName, CreationCollisionOption.ReplaceExisting);
 
         }
         #endregion
 
+        #region Constructors
+        public FileIOHelper()
+        {
+            
+        }
+        #endregion
     }
 }
     

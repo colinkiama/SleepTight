@@ -23,6 +23,7 @@ namespace Sleepy.ViewModel
         public TrackSleepViewModel()
         {
             // Get "sleeps" from saved list with sleep data
+            var loadedSleepData = Sleep.ParseLoadedSleepData(App.fileIOHelper.loadedSaveData);
         }
 
         public ObservableCollection<Sleep> CurrentSleepData
@@ -52,7 +53,7 @@ namespace Sleepy.ViewModel
 
         #region Methods
         //start creating methods that return a list
-        public 
+        
         #endregion
 
 
