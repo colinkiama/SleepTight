@@ -5,10 +5,17 @@
     xmlns:local="using:Sleepy.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
 
     <Grid Background="Transparent"
            Margin="0,80,0,0">
+        <Grid.Resources>
+            <Style TargetType="ListViewItem">
+                <Setter Property="Height"
+                            Value="60"/>
+            </Style>
+        </Grid.Resources>
         <StackPanel>
             <StackPanel.Resources>
                 <Style x:Key="ButtonRoundedStyle" TargetType="Button">
@@ -66,21 +73,28 @@
                     </Setter>
                 </Style>
             </StackPanel.Resources>
-            <Button Content="Good Night"
-                Background="#222222"
-                    HorizontalAlignment="Center"
+            <controls:DropShadowPanel
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
+                HorizontalAlignment="Center"
+                BlurRadius="24"
+                OffsetY="8">
+                <Button Content="Good Night"
+                Background="{ThemeResource SystemControlBackgroundAccentBrush}"
                    Width="200"
                     Height="50"
                     Margin="4,0"
+                        FontSize="16"
                     Style="{ThemeResource ButtonRoundedStyle}"/>
-            <ListView>
-                <ListView.Resources>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="Height"
-                            Value="60"/>
-                    </Style>
-                </ListView.Resources>
+            </controls:DropShadowPanel>
+           
+            <ListView Margin="0,20,0,0">
+                <ListViewItem>Tracking</ListViewItem>
+                <ListViewItem>Alarms</ListViewItem>
+                <ListViewItem>Reminders</ListViewItem>
             </ListView>
         </StackPanel>
+        
+        <ListViewItem VerticalAlignment="Bottom">Settings</ListViewItem>
     </Grid>
 </Page>

@@ -45,7 +45,7 @@ namespace Sleepy
 
         private void SetUpDefaultViews()
         {
-            SetContentFrame(typeof(MainPage));
+            SetContentFrame(typeof(TrackSleepView));
             SetMenuFrame();
         }
 

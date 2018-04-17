@@ -7,13 +7,16 @@ using System.Threading.Tasks;
 
 namespace Sleepy.Model
 {
-   public class Sleep
+    public class Sleep
     {
+        #region Properties
         public DateTime SleepStart { get; set; }
         public DateTime SleepEnd { get; set; }
         public SleepQuality QualityOfSleep { get; set; }
         public string Notes { get; set; }
+        #endregion
 
+        #region Constructors
         public Sleep(DateTime sleepStart, DateTime sleepEnd, SleepQuality qualityOfSleep)
         {
             SleepStart = sleepStart;
@@ -29,10 +32,14 @@ namespace Sleepy.Model
             QualityOfSleep = qualityOfSleep;
             Notes = notes;
         }
+        #endregion
+
+        #region Methods
+
 
         public override string ToString()
         {
-            return $"Slept from {SleepStart} to {SleepEnd}";
+            return $"{SleepStart} {SleepEnd} {QualityOfSleep} {Notes}";
         }
 
         public static TimeSpan CalculateSleepLength(DateTime sleepStart, DateTime sleepEnd)
@@ -40,5 +47,14 @@ namespace Sleepy.Model
             TimeSpan sleepCompleted = sleepEnd - sleepStart;
             return sleepCompleted;
         }
+        #endregion
+
+        #region Static Methods
+        public static List<Sleep> GetSleepDataFromString(IList<string> dataToGetSleepDataFrom)
+        {
+            // Turn the list of strings into a list of sleep data
+            List<Sleep> sleepData = new List<Sleep>();
+        }
+        #endregion
     }
 }
