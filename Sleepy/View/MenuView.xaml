@@ -14,6 +14,11 @@
             <Style TargetType="ListViewItem">
                 <Setter Property="Height"
                             Value="60"/>
+              
+            </Style>
+            <Style TargetType="FontIcon">
+                <Setter Property="Margin"
+                        Value="4,0,16,0"/>
             </Style>
         </Grid.Resources>
         <StackPanel>
@@ -79,24 +84,56 @@
                 HorizontalAlignment="Center"
                 BlurRadius="24"
                 OffsetY="8">
-                <Button Content="Good Night"
+                <Button
                         Name="SleepButton"
                         Click="SleepButton_Click"
                 Background="{ThemeResource SystemControlBackgroundAccentRevealBorderBrush}"
                    Width="200"
                     Height="50"
                     Margin="4,0"
-                        FontSize="16"
-                    Style="{ThemeResource ButtonRevealStyle}"/>
+                        
+                    Style="{ThemeResource ButtonRevealStyle}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEC46;" Margin="0,0,8,0"
+                                      FontSize="20"/>
+                            <TextBlock Text="Good Night" FontWeight="SemiBold"
+                                       FontSize="16"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
             </controls:DropShadowPanel>
-           
+
             <ListView Margin="0,20,0,0">
-                <ListViewItem>Tracking</ListViewItem>
-                <ListViewItem>Alarms</ListViewItem>
-                <ListViewItem>Reminders</ListViewItem>
+                <ListViewItem>
+                    <StackPanel Orientation="Horizontal" >
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE9D9;" />
+                        <TextBlock Text="Tracking"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem>
+                    <StackPanel Orientation="Horizontal" >
+                        <FontIcon FontFamily="Segoe MDL2 Assets" 
+                                  Glyph="&#xE823;" />
+                        <TextBlock Text="Alarms"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem>
+                    <StackPanel Orientation="Horizontal" >
+                        <FontIcon FontFamily="Segoe MDL2 Assets" 
+                                  Glyph="&#xEC42;" />
+                        <TextBlock Text="Reminders"/>
+                    </StackPanel>
+                   </ListViewItem>
             </ListView>
         </StackPanel>
-        
-        <ListViewItem VerticalAlignment="Bottom">Settings</ListViewItem>
+
+        <ListViewItem VerticalAlignment="Bottom">
+            <StackPanel Orientation="Horizontal" >
+                <FontIcon FontFamily="Segoe MDL2 Assets" 
+                                  Glyph="&#xE713;" />
+                <TextBlock Text="Settings"/>
+            </StackPanel> 
+        </ListViewItem>
     </Grid>
 </Page>
