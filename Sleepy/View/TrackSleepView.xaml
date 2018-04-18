@@ -8,6 +8,7 @@
     xmlns:telerikChart="using:Telerik.UI.Xaml.Controls.Chart"
     xmlns:vm="using:Sleepy.ViewModel"
     xmlns:Charting="using:WinRTXamlToolkit.Controls.DataVisualization.Charting"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
     <Page.Resources>
         <vm:TrackSleepViewModel x:Name="ViewModel"/>
@@ -28,5 +29,84 @@ IsSelectionEnabled="True"
 Title="Hours Slept For"           
 ItemsSource="{x:Bind ViewModel.CurrentSleepData}"/>
         </Charting:Chart>
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <StackPanel.Resources>
+                <Style x:Key="ButtonRoundedStyle" TargetType="Button">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="RootBorder" CornerRadius="10" Background="{TemplateBinding Background}">
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup x:Name="CommonStates">
+                                            <VisualState x:Name="Normal">
+                                                <Storyboard>
+                                                    <PointerUpThemeAnimation Storyboard.TargetName="RootBorder"/>
+                                                </Storyboard>
+                                            </VisualState>
+                                            <VisualState x:Name="PointerOver">
+                                                <VisualState.Setters>
+                                                    <Setter Target="OverlayBorder.(Border.Background)" Value="{ThemeResource SystemControlHighlightListMediumBrush}"/>
+                                                </VisualState.Setters>
+                                                <Storyboard>
+                                                    <PointerUpThemeAnimation Storyboard.TargetName="RootBorder"/>
+                                                </Storyboard>
+                                            </VisualState>
+                                            <VisualState x:Name="Pressed">
+                                                <VisualState.Setters>
+                                                    <Setter Target="OverlayBorder.(Border.Background)" Value="{ThemeResource SystemControlBackgroundBaseMediumBrush}"/>
+                                                </VisualState.Setters>
+                                                <Storyboard>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ContentPresenter">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBorderBrushPressed}"/>
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                    <PointerDownThemeAnimation Storyboard.TargetName="RootBorder"/>
+                                                </Storyboard>
+                                            </VisualState>
+                                            <VisualState x:Name="Disabled">
+                                                <VisualState.Setters>
+                                                    <Setter Target="OverlayBorder.(Border.Background)" Value="{ThemeResource SystemControlDisabledChromeDisabledLowBrush}"/>
+                                                </VisualState.Setters>
+                                                <Storyboard>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ContentPresenter">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBorderBrushDisabled}"/>
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonForegroundDisabled}"/>
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                </Storyboard>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+                                    <Border x:Name="OverlayBorder" CornerRadius="10">
+                                        <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" Foreground="White" Margin="15,3"/>
+                                    </Border>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </StackPanel.Resources>
+        <TextBlock Text="No Sleep Tracked Yet" VerticalAlignment="Top"
+                   FontSize="24"
+                   HorizontalAlignment="Center"
+                   FontWeight="SemiBold"/>
+            <controls:DropShadowPanel   HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
+                HorizontalAlignment="Center"
+                BlurRadius="24"
+                OffsetY="16">
+                <Button 
+                Content="+ Add Sleep Data"
+                Style="{ThemeResource ButtonRoundedStyle}"
+                Margin="0,12,0,0"
+                    Height="50"
+                    Width="200"
+                    FontSize="16"
+                Background="{ThemeResource SystemControlBackgroundAccentRevealBorderBrush}"
+                    />
+            </controls:DropShadowPanel>
+       
+        </StackPanel>
     </Grid>
 </Page>

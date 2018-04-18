@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="Sleepy.View.MenuView"
+    x:Class="Sleepy.View.SleepView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Sleepy.View"
@@ -8,15 +8,9 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
 
-    <Grid Background="Transparent"
-           Margin="0,80,0,0">
-        <Grid.Resources>
-            <Style TargetType="ListViewItem">
-                <Setter Property="Height"
-                            Value="60"/>
-            </Style>
-        </Grid.Resources>
-        <StackPanel>
+    <Grid Background="#333333">
+        <StackPanel HorizontalAlignment="Center"
+            VerticalAlignment="Center">
             <StackPanel.Resources>
                 <Style x:Key="ButtonRoundedStyle" TargetType="Button">
                     <Setter Property="Template">
@@ -73,30 +67,25 @@
                     </Setter>
                 </Style>
             </StackPanel.Resources>
-            <controls:DropShadowPanel
-                HorizontalContentAlignment="Stretch"
+            <TextBlock Text="Currently Sleeping"
+                       HorizontalAlignment="Center"
+                       FontSize="36"
+                       FontWeight="SemiBold"/>
+            <controls:DropShadowPanel   HorizontalContentAlignment="Stretch"
                 VerticalContentAlignment="Stretch"
                 HorizontalAlignment="Center"
                 BlurRadius="24"
-                OffsetY="8">
-                <Button Content="Good Night"
-                        Name="SleepButton"
-                        Click="SleepButton_Click"
-                Background="{ThemeResource SystemControlBackgroundAccentRevealBorderBrush}"
-                   Width="200"
+                OffsetY="16">
+                <Button 
+                Content="Wake Up!"
+                Style="{ThemeResource ButtonRoundedStyle}"
+                Margin="0,12,0,0"
                     Height="50"
-                    Margin="4,0"
-                        FontSize="16"
-                    Style="{ThemeResource ButtonRoundedStyle}"/>
+                    Width="200"
+                    FontSize="16"
+                Background="{ThemeResource SystemControlBackgroundAccentRevealBorderBrush}"
+                    />
             </controls:DropShadowPanel>
-           
-            <ListView Margin="0,20,0,0">
-                <ListViewItem>Tracking</ListViewItem>
-                <ListViewItem>Alarms</ListViewItem>
-                <ListViewItem>Reminders</ListViewItem>
-            </ListView>
         </StackPanel>
-        
-        <ListViewItem VerticalAlignment="Bottom">Settings</ListViewItem>
     </Grid>
 </Page>

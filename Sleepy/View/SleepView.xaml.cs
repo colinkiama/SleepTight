@@ -20,16 +20,11 @@ namespace Sleepy.View
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MenuView : Page
+    public sealed partial class SleepView : Page
     {
-        public MenuView()
+        public SleepView()
         {
             this.InitializeComponent();
-        }
-
-        private void SleepButton_Click(object sender, RoutedEventArgs e)
-        {
-            Shell.Navigate(typeof(SleepView));
         }
     }
 }

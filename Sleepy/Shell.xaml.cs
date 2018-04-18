@@ -24,13 +24,34 @@ namespace Sleepy
     public sealed partial class Shell : Page
     {
         public Stack<Page> NavigationStack;
+
+        //TODO: Create events that carry page types and parameters. When the events are raised,
+        //You start navigate navigating using the args specified
+        //Args should be: Type ViewType and object Parameter
+        public static event EventHandler NavigateEvent;
+        public static event EventHandler GoBackEvent;
+
+        
+
+        internal static void Navigate(Type ViewType, object parameter = null)
+        {
+            //Use this to invoke the NavigateEvent
+            
+        }
+
+        internal static void NavigateBack()
+        {
+            //Use this to invoke the GoBackEvent
+        }
+
         public Shell()
         {
             this.InitializeComponent();
             NavigationStack = new Stack<Page>();
 
-            
         }
+
+      
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -49,9 +70,15 @@ namespace Sleepy
             SetMenuFrame();
         }
 
-        private void SetContentFrame(Type pageType)
+        private void SetContentFrame(Type ViewType)
         {
-            contentFrame.Navigate(pageType);
+            contentFrame.Navigate(ViewType);
+            AddCurrentPageToNavigationStack();
+        }
+
+        private void AddCurrentPageToNavigationStack()
+        {
+            NavigationStack.Push((Page)contentFrame.Content);
         }
 
         private void SetMenuFrame()
@@ -59,6 +86,19 @@ namespace Sleepy
             MenuFrame.Navigate(typeof(MenuView));
         }
 
-       
+        public void NavigateTo(Type ViewType)
+        {
+            contentFrame.Navigate(ViewType);
+            AddCurrentPageToNavigationStack();
+        }
+
+        public void GoBack()
+        {
+            if (NavigationStack.Count > 0)
+            {
+                var pageToNavigateTo = NavigationStack.Pop();
+                contentFrame.Navigate(pageToNavigateTo.GetType());
+            }
+        }
     }
 }
