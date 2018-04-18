@@ -78,7 +78,7 @@
                 OffsetY="16">
                 <Button 
                 Content="Wake Up!"
-                Style="{ThemeResource ButtonRoundedStyle}"
+                Style="{ThemeResource ButtonRevealStyle}"
                 Margin="0,12,0,0"
                     Height="50"
                     Width="200"

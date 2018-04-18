@@ -2,11 +2,15 @@
 using Sleepy.View;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -22,38 +26,29 @@ namespace Sleepy
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class Shell : Page
+    public sealed partial class Shell : Page, INotifyPropertyChanged
     {
-        public Stack<Page> NavigationStack;
+        #region Fields
+        private Stack<Page> NavigationStack;
+        #endregion
 
-        //TODO: Create events that carry page types and parameters. When the events are raised,
-        //You start navigate navigating using the args specified
-        //Args should be: Type ViewType and object Parameter
+        #region Properties
+
+        public bool CanGoBack { get => NavigationStack.Count > 0; }
+
+        #endregion
+
+        #region Events
         public static event NavEventHandler NavigateEvent;
+        public static event EventHandler Navigated;
+        public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
 
+        #region Event Handlers
         public delegate void NavEventHandler(NavType NavigationType, Type ViewType = null, object parameter = null);
+        #endregion
 
-        internal static void Navigate(Type viewType, object parameter = null)
-        {
-            NavigateEvent?.Invoke(NavType.NavigateTo, viewType, parameter);
-
-
-        }
-
-
-        internal static void NavigateBack()
-        {
-            NavigateEvent?.Invoke(NavType.NavigateBack);
-        }
-
-        public Shell()
-        {
-            this.InitializeComponent();
-            NavigationStack = new Stack<Page>();
-            NavigateEvent += Shell_NavigateEvent;
-
-        }
-
+        #region Event Methods
         private void Shell_NavigateEvent(NavType NavigationType, Type ViewType, object parameter)
         {
             switch (NavigationType)
@@ -67,15 +62,75 @@ namespace Sleepy
             }
         }
 
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void RaiseNavigatedEvent()
+        {
+            Navigated?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void Shell_BackRequested(object sender, BackRequestedEventArgs e)
+        {
+            GoBack();
+        }
+
+        private void Shell_Navigated(object sender, EventArgs e)
+        {
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
+        }
+        #endregion
+
+        #region Static Methods
+        internal static void Navigate(Type viewType, object parameter = null)
+        {
+            NavigateEvent?.Invoke(NavType.NavigateTo, viewType, parameter);
+        }
+
+
+        internal static void NavigateBack()
+        {
+            NavigateEvent?.Invoke(NavType.NavigateBack);
+        }
+        #endregion
+
+        #region Constructors
+        public Shell()
+        {
+            this.InitializeComponent();
+            NavigationStack = new Stack<Page>();
+            NavigateEvent += Shell_NavigateEvent;
+            Navigated += Shell_Navigated;
+        }
+
+
+        #endregion
+
+        #region Override Methods
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             if (e.Parameter != null)
             {
                 // Handle parameters when app becomes more advanced
-                
+
             }
             SetUpDefaultViews();
-            
+            HookUpBackButton();
+
+        }
+
+
+
+
+        #endregion
+
+        #region Private Methods
+
+        private void HookUpBackButton()
+        {
+            SystemNavigationManager.GetForCurrentView().BackRequested += Shell_BackRequested;
         }
 
         private void SetUpDefaultViews()
@@ -87,7 +142,7 @@ namespace Sleepy
         private void SetContentFrame(Type ViewType)
         {
             contentFrame.Navigate(ViewType);
-            AddCurrentPageToNavigationStack();
+            RaiseNavigatedEvent();
         }
 
         private void AddCurrentPageToNavigationStack()
@@ -98,34 +153,48 @@ namespace Sleepy
         private void SetMenuFrame()
         {
             MenuFrame.Navigate(typeof(MenuView));
+
         }
 
-        public void NavigateTo(Type ViewType, object Parameter = null)
+        private void NavigateTo(Type ViewType, object Parameter = null)
         {
-            contentFrame.Navigate(ViewType,Parameter);
-            AddCurrentPageToNavigationStack();
+            if (contentFrame?.CurrentSourcePageType != ViewType)
+            {
+                AddCurrentPageToNavigationStack();
+                contentFrame.Navigate(ViewType);
+                RaiseNavigatedEvent();
+            }
+          
         }
 
-        public void GoBack()
+        private void GoBack()
         {
             if (NavigationStack.Count > 0)
             {
                 var pageToNavigateTo = NavigationStack.Pop();
-                contentFrame.Navigate(pageToNavigateTo.GetType());
+                Type pageType = pageToNavigateTo.GetType();
+                contentFrame.GoBack();
+                RaiseNavigatedEvent();
             }
         }
     }
+    #endregion
+
 
     public class NavEventArgs
     {
-        public NavEventArgs(NavType navigationType,Type viewType = null, object paramenter = null)
+
+        #region Constructors
+        public NavEventArgs(NavType navigationType, Type viewType = null, object paramenter = null)
         {
             _navigationType = navigationType;
             _viewType = viewType;
             _parameter = paramenter;
 
         }
+        #endregion
 
+        #region Properties
         private NavType _navigationType;
 
         public NavType NavigationType
@@ -146,6 +215,11 @@ namespace Sleepy
         {
             get { return _parameter; }
         }
+        #endregion
+
 
     }
+
+
+
 }
