@@ -98,12 +98,13 @@ ItemsSource="{x:Bind ViewModel.CurrentSleepData}"/>
                 OffsetY="16">
                 <Button 
                 Content="+ Add Sleep Data"
-                Style="{ThemeResource ButtonRoundedStyle}"
+               
                 Margin="0,12,0,0"
                     Height="50"
                     Width="200"
                     FontSize="16"
                 Background="{ThemeResource SystemControlBackgroundAccentRevealBorderBrush}"
+                    Style="{ThemeResource ButtonRevealStyle}"
                     />
             </controls:DropShadowPanel>
        

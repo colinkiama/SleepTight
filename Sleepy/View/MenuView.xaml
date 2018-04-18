@@ -87,7 +87,7 @@
                     Height="50"
                     Margin="4,0"
                         FontSize="16"
-                    Style="{ThemeResource ButtonRoundedStyle}"/>
+                    Style="{ThemeResource ButtonRevealStyle}"/>
             </controls:DropShadowPanel>
            
             <ListView Margin="0,20,0,0">
