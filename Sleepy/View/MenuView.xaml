@@ -9,7 +9,7 @@
     mc:Ignorable="d">
 
     <Grid Background="Transparent"
-           Margin="0,0,0,0">
+           Margin="0,80,0,0">
         <Grid.Resources>
             <Style TargetType="ListViewItem">
                 <Setter Property="Height"
@@ -79,12 +79,6 @@
                 </Style>
             </StackPanel.Resources>
 
-            <Image x:Name="TheImage"
-                   Stretch="Fill"
-                   Width="100"
-                   Height="100"
-                   Source="ms-appx:///Assets/myPic.png"
-                   />
             <controls:DropShadowPanel
                 HorizontalContentAlignment="Stretch"
                 VerticalContentAlignment="Stretch"
