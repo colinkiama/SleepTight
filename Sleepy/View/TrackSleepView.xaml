@@ -15,14 +15,18 @@
     <Grid Background="#333333">
         <Charting:Chart  
 x:Name="ColumnChart"  
-HorizontalAlignment="Left"  
-VerticalAlignment="Top"  
-Margin="0" Width="329" >
+HorizontalAlignment="Stretch"  
+VerticalAlignment="Stretch"  
+Margin="0" Width="600"
+            Height="500"
+            Title="Hours Spent Sleeping">
             <Charting:ColumnSeries Margin="0"  
-IndependentValuePath="Name"  
-DependentValuePath="Amount"
-CharacterSpacing="5"  
-IsSelectionEnabled="True"/>
+                IndependentValuePath="DaySleptOn"  
+DependentValuePath="HoursSleptFor"
+CharacterSpacing="20"  
+IsSelectionEnabled="True"
+Title="Hours Slept For"           
+ItemsSource="{x:Bind ViewModel.CurrentSleepData}"/>
         </Charting:Chart>
     </Grid>
 </Page>

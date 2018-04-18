@@ -13,7 +13,7 @@ namespace Sleepy.ViewModel
     class TrackSleepViewModel : INotifyPropertyChanged
     {
         #region Fields
-      
+
         ObservableCollection<Sleep> sleeps;
         ObservableCollection<Sleep> _currentSleepData;
         #endregion
@@ -27,23 +27,18 @@ namespace Sleepy.ViewModel
             sleeps = new ObservableCollection<Sleep>(loadedSleepData);
             _currentSleepData = new ObservableCollection<Sleep>();
             GetSleepDataForWeek();
-            FillCurrentDataWithFakeData();
+            
         }
 
-        private void FillCurrentDataWithFakeData()
-        {
-            var sleepToAdd = new Sleep(DateTime.Now.AddDays(-1), DateTime.Now, Enums.SleepQuality.ThreeStars, "Testing");
-            _currentSleepData.Clear();
-            _currentSleepData.Add(sleepToAdd);
-        }
-
+       
         public ObservableCollection<Sleep> CurrentSleepData
         {
             get
             {
                 return _currentSleepData;
             }
-            set {
+            set
+            {
                 _currentSleepData = value;
                 NotifyPropertyChanged();
             }
@@ -111,7 +106,14 @@ namespace Sleepy.ViewModel
 
         #endregion
 
-
+        #region Test Methods
+        private void FillCurrentDataWithFakeData()
+        {
+            var sleepToAdd = new Sleep(DateTime.Now.AddHours(-8), DateTime.Now, Enums.SleepQuality.ThreeStars, "Testing");
+            _currentSleepData.Clear();
+            _currentSleepData.Add(sleepToAdd);
+        }
+        #endregion
 
     }
 }

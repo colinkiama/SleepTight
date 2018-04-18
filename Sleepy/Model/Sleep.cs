@@ -14,6 +14,8 @@ namespace Sleepy.Model
         public DateTime SleepEnd { get; set; }
         public SleepQuality QualityOfSleep { get; set; }
         public string Notes { get; set; }
+        public double HoursSleptFor { get { return new TimeSpan(SleepEnd.Ticks).TotalHours - new TimeSpan(SleepStart.Ticks).TotalHours; } }
+        public string DaySleptOn { get { return SleepStart.DayOfWeek.ToString(); } }
         #endregion
 
         #region Constructors
@@ -23,6 +25,7 @@ namespace Sleepy.Model
             SleepEnd = sleepEnd;
             QualityOfSleep = qualityOfSleep;
             Notes = String.Empty;
+           
         }
 
         public Sleep(DateTime sleepStart, DateTime sleepEnd, SleepQuality qualityOfSleep, string notes)
