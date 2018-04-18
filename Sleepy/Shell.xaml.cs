@@ -1,4 +1,5 @@
-﻿using Sleepy.View;
+﻿using Sleepy.Enums;
+using Sleepy.View;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -28,30 +29,43 @@ namespace Sleepy
         //TODO: Create events that carry page types and parameters. When the events are raised,
         //You start navigate navigating using the args specified
         //Args should be: Type ViewType and object Parameter
-        public static event EventHandler NavigateEvent;
-        public static event EventHandler GoBackEvent;
+        public static event NavEventHandler NavigateEvent;
 
-        
+        public delegate void NavEventHandler(NavType NavigationType, Type ViewType = null, object parameter = null);
 
-        internal static void Navigate(Type ViewType, object parameter = null)
+        internal static void Navigate(Type viewType, object parameter = null)
         {
-            //Use this to invoke the NavigateEvent
-            
+            NavigateEvent?.Invoke(NavType.NavigateTo, viewType, parameter);
+
+
         }
+
 
         internal static void NavigateBack()
         {
-            //Use this to invoke the GoBackEvent
+            NavigateEvent?.Invoke(NavType.NavigateBack);
         }
 
         public Shell()
         {
             this.InitializeComponent();
             NavigationStack = new Stack<Page>();
+            NavigateEvent += Shell_NavigateEvent;
 
         }
 
-      
+        private void Shell_NavigateEvent(NavType NavigationType, Type ViewType, object parameter)
+        {
+            switch (NavigationType)
+            {
+                case NavType.NavigateTo:
+                    NavigateTo(ViewType, parameter);
+                    break;
+                case NavType.NavigateBack:
+                    GoBack();
+                    break;
+            }
+        }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -86,9 +100,9 @@ namespace Sleepy
             MenuFrame.Navigate(typeof(MenuView));
         }
 
-        public void NavigateTo(Type ViewType)
+        public void NavigateTo(Type ViewType, object Parameter = null)
         {
-            contentFrame.Navigate(ViewType);
+            contentFrame.Navigate(ViewType,Parameter);
             AddCurrentPageToNavigationStack();
         }
 
@@ -100,5 +114,38 @@ namespace Sleepy
                 contentFrame.Navigate(pageToNavigateTo.GetType());
             }
         }
+    }
+
+    public class NavEventArgs
+    {
+        public NavEventArgs(NavType navigationType,Type viewType = null, object paramenter = null)
+        {
+            _navigationType = navigationType;
+            _viewType = viewType;
+            _parameter = paramenter;
+
+        }
+
+        private NavType _navigationType;
+
+        public NavType NavigationType
+        {
+            get { return _navigationType; }
+        }
+
+        private Type _viewType;
+
+        public Type ViewType
+        {
+            get { return _viewType; }
+        }
+
+        private object _parameter;
+
+        public object Parameter
+        {
+            get { return _parameter; }
+        }
+
     }
 }
