@@ -20,28 +20,17 @@ namespace Sleepy.View
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class TrackSleepView : Page
+    public sealed partial class AddSleepDataView : Page
     {
-        public TrackSleepView()
+        public AddSleepDataView()
         {
             this.InitializeComponent();
-           
-            
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-            if (ViewModel.CurrentSleepData.Count > 0 == false)
-            {
-                this.ColumnChart.Visibility = Visibility.Collapsed;
-            }
-        }
 
-        private void AddSleepDataButton_Click(object sender, RoutedEventArgs e)
+        private void FinishAddingSleepDataButton_Click(object sender, RoutedEventArgs e)
         {
-            Shell.Navigate(typeof(AddSleepDataView));
+
         }
     }
-    
 }

@@ -1,0 +1,55 @@
+﻿<Page
+    x:Class="Sleepy.View.AddSleepDataView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Sleepy.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d">
+
+    <Grid Background="#333333">
+        <TextBlock Text="How was your sleep?"
+                   FontSize="36"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   Margin="0,40,0,0"
+                   FontWeight="SemiBold"/>
+        <ScrollViewer>
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <DatePicker Header="Sleep Start Date:"/>
+            <TimePicker Header="Sleep Start Time:"/>
+            <DatePicker Header="Sleep End Date:"/>
+            <TimePicker Header="Sleep End Time:"/>
+            <TextBlock Text="Quality Of Sleep:" Margin="0,20,0,8"/>
+            <RatingControl Name="SleepQualityRatingControl"/>
+                <TextBox Name="NotesTextBox" Header="Any Notes?"
+                     Margin="0,20,0,0"
+                     TextWrapping="Wrap"
+                     Height="150"
+                         MaxWidth="300"
+                         PlaceholderText="Anything about your dreams, how you feel compared to how you felt before etc."
+                         AcceptsReturn="True"/>
+            </StackPanel>
+        </ScrollViewer>
+        <controls:DropShadowPanel   HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
+                HorizontalAlignment="Center"
+                 VerticalAlignment="Bottom"
+                BlurRadius="24"
+                OffsetY="8"
+                Margin="0,0,0,40">
+            <Button 
+                Content="Done"
+                    Height="50"
+                    Width="200"
+                    FontSize="16"
+                Background="{ThemeResource SystemControlBackgroundAccentRevealBorderBrush}"
+                    Style="{ThemeResource ButtonRevealStyle}" VerticalAlignment="Bottom"
+                Name="FinishAddingSleepDataButton"
+                Click="FinishAddingSleepDataButton_Click"
+                    />
+        </controls:DropShadowPanel>
+    </Grid>
+</Page>
