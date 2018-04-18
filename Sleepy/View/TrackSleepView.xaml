@@ -88,7 +88,7 @@ ItemsSource="{x:Bind ViewModel.CurrentSleepData}"/>
                 </Style>
             </StackPanel.Resources>
         <TextBlock Text="No Sleep Tracked Yet" VerticalAlignment="Top"
-                   FontSize="24"
+                   FontSize="36"
                    HorizontalAlignment="Center"
                    FontWeight="SemiBold"/>
             <controls:DropShadowPanel   HorizontalContentAlignment="Stretch"
