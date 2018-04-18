@@ -110,6 +110,9 @@ namespace Sleepy
         {
             var titleBar = ApplicationView.GetForCurrentView().TitleBar;
             titleBar.ButtonBackgroundColor = Colors.Transparent;
+            titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+            titleBar.ButtonForegroundColor = Colors.White;
+            
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
             
         }
