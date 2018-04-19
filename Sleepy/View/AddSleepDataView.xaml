@@ -9,19 +9,29 @@
     mc:Ignorable="d">
 
     <Grid Background="#333333">
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
         <TextBlock Text="How was your sleep?"
                    FontSize="36"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Top"
                    Margin="0,40,0,0"
                    FontWeight="SemiBold"/>
-        <ScrollViewer>
+        <ScrollViewer Grid.Row="1">
         <StackPanel HorizontalAlignment="Center"
                     VerticalAlignment="Center">
-            <DatePicker Header="Sleep Start Date:"/>
-            <TimePicker Header="Sleep Start Time:"/>
-            <DatePicker Header="Sleep End Date:"/>
-            <TimePicker Header="Sleep End Time:"/>
+            <DatePicker Header="Sleep Start Date:"
+                        Name="SleepStartDatePicker"/>
+            <TimePicker Header="Sleep Start Time:"
+                        Name="SleepStartTimePicker"/>
+            <DatePicker Header="Sleep End Date:"
+                        Name="SleepEndDatePicker"/>
+            <TimePicker Header="Sleep End Time:"
+                        Name="SleepEndTimePicker"/>
             <TextBlock Text="Quality Of Sleep:" Margin="0,20,0,8"/>
             <RatingControl Name="SleepQualityRatingControl"/>
                 <TextBox Name="NotesTextBox" Header="Any Notes?"
@@ -39,7 +49,8 @@
                  VerticalAlignment="Bottom"
                 BlurRadius="24"
                 OffsetY="8"
-                Margin="0,0,0,40">
+                Margin="0,0,0,40"
+                                    Grid.Row="2">
             <Button 
                 Content="Done"
                     Height="50"
