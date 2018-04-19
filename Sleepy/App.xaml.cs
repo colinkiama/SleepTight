@@ -38,6 +38,8 @@ namespace Sleepy
         /// 
 
         public static FileIOHelper fileIOHelper { get; private set; } = new FileIOHelper();
+        public static AnimationHelper animationHelper { get; private set; } = new AnimationHelper();
+
         public App()
         {
             this.InitializeComponent();

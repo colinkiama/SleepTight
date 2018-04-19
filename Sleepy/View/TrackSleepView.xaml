@@ -30,7 +30,8 @@ Title="Hours Slept For"
 ItemsSource="{x:Bind ViewModel.CurrentSleepData}"/>
         </Charting:Chart>
         <StackPanel HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
+                    VerticalAlignment="Center"
+                    Name="NoSleepTrackStackPanel">
             <StackPanel.Resources>
                 <Style x:Key="ButtonRoundedStyle" TargetType="Button">
                     <Setter Property="Template">

@@ -98,6 +98,7 @@
     </Compile>
     <Compile Include="Enums\NavType.cs" />
     <Compile Include="Enums\SleepQuality.cs" />
+    <Compile Include="Helpers\AnimationHelper.cs" />
     <Compile Include="Helpers\FileIOHelper.cs" />
     <Compile Include="Helpers\SleepHelper.cs" />
     <Compile Include="Model\Sleep.cs" />

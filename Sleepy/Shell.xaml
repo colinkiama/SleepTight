@@ -35,6 +35,8 @@
               
             </controls:DropShadowPanel>
         </Grid>
-        
+        <Frame Name="fullViewFrame" Grid.RowSpan="2"
+               Visibility="Collapsed"
+               Background="Transparent"/>
     </Grid>
 </Page>

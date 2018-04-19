@@ -25,17 +25,21 @@ namespace Sleepy.View
         public TrackSleepView()
         {
             this.InitializeComponent();
-           
-            
         }
+
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (ViewModel.CurrentSleepData.Count > 0 == false)
+            if (ViewModel.CurrentSleepData.Count < 1)
             {
                 this.ColumnChart.Visibility = Visibility.Collapsed;
             }
+            else
+            {
+                NoSleepTrackStackPanel.Visibility = Visibility.Collapsed;
+            }
+
         }
 
         private void AddSleepDataButton_Click(object sender, RoutedEventArgs e)
@@ -43,5 +47,5 @@ namespace Sleepy.View
             Shell.Navigate(typeof(AddSleepDataView));
         }
     }
-    
+
 }

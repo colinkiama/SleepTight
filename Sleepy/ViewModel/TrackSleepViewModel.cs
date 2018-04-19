@@ -18,12 +18,14 @@ namespace Sleepy.ViewModel
         ObservableCollection<Sleep> _currentSleepData;
         #endregion
 
+
         #region Properties
 
         public TrackSleepViewModel()
         {
             // Get "sleeps" from saved list with sleep data
             var loadedSleepData = Sleep.ParseLoadedSleepData(App.fileIOHelper.loadedSaveData);
+            loadedSleepData.Sort();
             sleeps = new ObservableCollection<Sleep>(loadedSleepData);
             _currentSleepData = new ObservableCollection<Sleep>();
             GetSleepDataForWeek();
@@ -69,6 +71,7 @@ namespace Sleepy.ViewModel
             {
                 _currentSleepData.Add(sleepData);
             }
+            
         }
 
         public void GetSleepDataForMonth()

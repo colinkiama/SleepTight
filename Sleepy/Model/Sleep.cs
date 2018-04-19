@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Sleepy.Model
 {
-    public class Sleep
+    public class Sleep: IComparable<Sleep>
     {
         #region Properties
         public DateTime SleepStart { get; set; }
@@ -79,6 +79,19 @@ namespace Sleepy.Model
             var notes = sleepProperties[3];
             var parsedSleepData = new Sleep(sleepStart, sleepEnd, qualityOfSleep, notes);
             return parsedSleepData;
+        }
+
+
+        #endregion
+
+        #region IComparable Methods
+        public int CompareTo(Sleep other)
+        {
+            var currentSleepDate = SleepStart.Date;
+            var otherSleepDate = other.SleepStart.Date;
+            TimeSpan differenceBetweenDates = currentSleepDate - otherSleepDate;
+            int result = (int)differenceBetweenDates.TotalDays;
+            return result;
         }
         #endregion
     }

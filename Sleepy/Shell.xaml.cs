@@ -1,4 +1,5 @@
-﻿using Sleepy.Enums;
+﻿using Microsoft.Toolkit.Uwp.UI.Animations;
+using Sleepy.Enums;
 using Sleepy.View;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
@@ -49,15 +51,15 @@ namespace Sleepy
         #endregion
 
         #region Event Methods
-        private void Shell_NavigateEvent(NavType NavigationType, Type ViewType, object parameter)
+        private async void Shell_NavigateEventAsync(NavType NavigationType, Type ViewType, object parameter)
         {
             switch (NavigationType)
             {
                 case NavType.NavigateTo:
-                    NavigateTo(ViewType, parameter);
+                   await NavigateToAsync(ViewType, parameter);
                     break;
                 case NavType.NavigateBack:
-                    GoBack();
+                   await GoBackAsync();
                     break;
             }
         }
@@ -72,9 +74,9 @@ namespace Sleepy
             Navigated?.Invoke(this, EventArgs.Empty);
         }
 
-        private void Shell_BackRequested(object sender, BackRequestedEventArgs e)
+        private async void Shell_BackRequestedAsync(object sender, BackRequestedEventArgs e)
         {
-            GoBack();
+            await GoBackAsync();
         }
 
         private void Shell_Navigated(object sender, EventArgs e)
@@ -101,7 +103,7 @@ namespace Sleepy
         {
             this.InitializeComponent();
             NavigationStack = new Stack<Page>();
-            NavigateEvent += Shell_NavigateEvent;
+            NavigateEvent += Shell_NavigateEventAsync;
             Navigated += Shell_Navigated;
         }
 
@@ -130,13 +132,19 @@ namespace Sleepy
 
         private void HookUpBackButton()
         {
-            SystemNavigationManager.GetForCurrentView().BackRequested += Shell_BackRequested;
+            SystemNavigationManager.GetForCurrentView().BackRequested += Shell_BackRequestedAsync;
         }
 
         private void SetUpDefaultViews()
         {
             SetContentFrame(typeof(TrackSleepView));
             SetMenuFrame();
+            SetUpFullViewFrameForAnimation();
+        }
+
+        private void SetUpFullViewFrameForAnimation()
+        {
+            App.animationHelper.PrepForScaleAnim(fullViewFrame);
         }
 
         private void SetContentFrame(Type ViewType)
@@ -156,29 +164,64 @@ namespace Sleepy
 
         }
 
-        private void NavigateTo(Type ViewType, object Parameter = null)
+        private async Task NavigateToAsync(Type ViewType, object Parameter = null)
         {
             if (contentFrame?.CurrentSourcePageType != ViewType)
             {
                 AddCurrentPageToNavigationStack();
-                contentFrame.Navigate(ViewType);
+                bool isSleepView = CheckIfViewIsSleepView(ViewType);
+                if (isSleepView)
+                {
+                    await HandleFullViewNavigationAsync(ViewType);
+                }
+                else
+                {
+                    contentFrame.Navigate(ViewType);
+                }
                 RaiseNavigatedEvent();
             }
           
         }
 
-        private void GoBack()
+        private async Task HandleFullViewNavigationAsync(Type viewType)
+        {
+            fullViewFrame.Navigate(viewType);
+            fullViewFrame.Visibility = Visibility.Visible;
+            await App.animationHelper.ScaleAnimation(fullViewFrame);
+        }
+
+        private bool CheckIfViewIsSleepView(Type viewType)
+        {
+            return (viewType == typeof(SleepView));
+        }
+
+        private async Task GoBackAsync()
         {
             if (NavigationStack.Count > 0)
             {
                 var pageToNavigateTo = NavigationStack.Pop();
                 Type pageType = pageToNavigateTo.GetType();
-                contentFrame.GoBack();
+                if (fullViewFrame.Content != null)
+                {
+                    await HandleFullViewFrameNavigateBackAsync();
+                }
+                else
+                {
+                    contentFrame.GoBack();
+                }
                 RaiseNavigatedEvent();
             }
         }
+
+        private async Task HandleFullViewFrameNavigateBackAsync()
+        {
+            await App.animationHelper.ScaleDownAnimation(fullViewFrame);
+            fullViewFrame.Visibility = Visibility.Collapsed;
+            fullViewFrame.Content = null;
+        }
+        #endregion
     }
-    #endregion
+
 
 
     public class NavEventArgs

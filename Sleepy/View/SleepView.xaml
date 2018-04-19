@@ -10,7 +10,8 @@
 
     <Grid Background="#333333">
         <StackPanel HorizontalAlignment="Center"
-            VerticalAlignment="Center">
+            VerticalAlignment="Center"
+                    Name="sleepStackPanel">
             <StackPanel.Resources>
                 <Style x:Key="ButtonRoundedStyle" TargetType="Button">
                     <Setter Property="Template">

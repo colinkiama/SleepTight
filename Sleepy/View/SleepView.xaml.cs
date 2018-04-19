@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Uwp.UI.Animations;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,15 @@ namespace Sleepy.View
         public SleepView()
         {
             this.InitializeComponent();
+            sleepStackPanel.Fade(0,0).Start();
+            App.animationHelper.ScaleAnimCompleted += AnimationHelper_ScaleAnimCompleted;
         }
+
+        private async void AnimationHelper_ScaleAnimCompleted(object sender, EventArgs e)
+        {
+            await sleepStackPanel.Fade(1, 300).StartAsync();
+        }
+
+       
     }
 }
