@@ -32,6 +32,7 @@ namespace Sleepy.Helpers
 
             string saveFileContent = builder.ToString();
             await saveDataToFileAsync(saveFileContent);
+            loadedSaveData = await loadDataFromFileAsync();
             return saveCompleted;
         }
 
@@ -39,6 +40,13 @@ namespace Sleepy.Helpers
         {
             var sleepFile = await CreateSaveFileAsync();
             await FileIO.WriteTextAsync(sleepFile, saveFileContent);
+        }
+
+        public async Task loadAndStoreDataFromFileAsync()
+        {
+            // read each new line 
+            var sleepFile = await GetSaveFileAsync();
+            loadedSaveData = await FileIO.ReadLinesAsync(sleepFile);
         }
 
         public async Task<IList<string>> loadDataFromFileAsync()

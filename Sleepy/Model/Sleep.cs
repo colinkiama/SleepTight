@@ -42,7 +42,7 @@ namespace Sleepy.Model
 
         public override string ToString()
         {
-            return $"{SleepStart} {SleepEnd} {QualityOfSleep} {Notes}";
+            return $"{SleepStart},{SleepEnd},{QualityOfSleep},{Notes}";
         }
 
         public static TimeSpan CalculateSleepLength(DateTime sleepStart, DateTime sleepEnd)

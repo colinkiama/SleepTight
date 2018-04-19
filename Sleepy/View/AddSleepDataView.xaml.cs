@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Sleepy.Enums;
+using Sleepy.Model;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -26,10 +28,11 @@ namespace Sleepy.View
         public AddSleepDataView()
         {
             this.InitializeComponent();
+            SleepQualityRatingControl.Value = 1;
         }
 
 
-        private void FinishAddingSleepDataButton_Click(object sender, RoutedEventArgs e)
+        private async void FinishAddingSleepDataButton_Click(object sender, RoutedEventArgs e)
         {
             // Getting start of sleep
             DateTimeOffset startDate = SleepStartDatePicker.Date;
@@ -44,8 +47,41 @@ namespace Sleepy.View
             // Getting quality of sleep
             int ratingValueAsInt = (int)SleepQualityRatingControl.Value;
             // TODO: Case Statement for values 1 to 5 paired to 1 to 5 star sleep quality.
+            SleepQuality qualityOfSleep = new SleepQuality();
+            switch (ratingValueAsInt)
+            {
+                case 1:
+                    qualityOfSleep = SleepQuality.OneStar;
+                    break;
+                case 2:
+                    qualityOfSleep = SleepQuality.TwoStars;
+                    break;
+                case 3:
+                    qualityOfSleep = SleepQuality.ThreeStars;
+                    break;
+                case 4:
+                    qualityOfSleep = SleepQuality.FourStars;
+                    break;
+                case 5:
+                    qualityOfSleep = SleepQuality.FiveStars;
+                    break;
+            }
 
-            
+            Sleep sleepToAdd;
+            if (NotesTextBox.Text.Trim().Equals(string.Empty))
+            {
+                sleepToAdd = new Sleep(sleepStart, sleepEnd, qualityOfSleep);
+
+            }
+            else
+            {
+                sleepToAdd = new Sleep(sleepStart, sleepEnd, qualityOfSleep, NotesTextBox.Text);
+            }
+
+            await ViewModel.AddNewSleep(sleepToAdd);
+
+            Shell.Navigate(typeof(TrackSleepView));
+
         }
     }
 }

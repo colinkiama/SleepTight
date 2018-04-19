@@ -105,6 +105,7 @@
     <Compile Include="Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\AddSleepDataViewModel.cs" />
     <Compile Include="ViewModel\TrackSleepViewModel.cs" />
     <Compile Include="View\AddSleepDataView.xaml.cs">
       <DependentUpon>AddSleepDataView.xaml</DependentUpon>

@@ -97,7 +97,7 @@ namespace Sleepy
                     break;
                 case Mango.Enums.appVersionStatus.Old:
                 case Mango.Enums.appVersionStatus.Current:
-                    await fileIOHelper.loadDataFromFileAsync();
+                    await fileIOHelper.loadAndStoreDataFromFileAsync();
                     break;
                 default:
                     break;

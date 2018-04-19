@@ -10,9 +10,9 @@
     xmlns:Charting="using:WinRTXamlToolkit.Controls.DataVisualization.Charting"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
-    <Page.Resources>
+    <Page.DataContext>
         <vm:TrackSleepViewModel x:Name="ViewModel"/>
-    </Page.Resources>
+    </Page.DataContext>
     <Grid Background="#333333">
         <Charting:Chart  
 x:Name="ColumnChart"  
