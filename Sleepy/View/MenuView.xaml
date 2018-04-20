@@ -9,7 +9,7 @@
     mc:Ignorable="d">
 
     <Grid Background="Transparent"
-           Margin="0,80,0,0">
+         >
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
@@ -26,37 +26,29 @@
                         Value="4,0,16,0"/>
             </Style>
         </Grid.Resources>
-        
-       
 
-            <controls:DropShadowPanel
-                HorizontalContentAlignment="Stretch"
-                VerticalContentAlignment="Stretch"
-                VerticalAlignment="Top"
-                HorizontalAlignment="Center"
-                BlurRadius="24"
-                OffsetY="8">
-                <Button
-                        Name="SleepButton"
-                        Click="SleepButton_Click"
-                Background="{ThemeResource SystemControlBackgroundAccentRevealBorderBrush}"
-                   Width="200"
-                    Height="50"
-                        
-                    Style="{ThemeResource ButtonRevealStyle}">
-                    <Button.Content>
-                        <StackPanel Orientation="Horizontal">
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEC46;" Margin="0,0,8,0"
+        <StackPanel>
+        <TextBlock Text="SleepTight"
+                   FontWeight="SemiBold"
+                   Margin="36,20,0,0"
+                   VerticalAlignment="Top"/>
+            <ListViewItem
+                Margin="0,20,0,0"
+                
+                >
+                <StackPanel Orientation="Horizontal">
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEC46;"
                                       FontSize="20"/>
-                            <TextBlock Text="Good Night" FontWeight="SemiBold"
-                                       FontSize="16"/>
-                        </StackPanel>
-                    </Button.Content>
-                </Button>
-            </controls:DropShadowPanel>
-
+                    <TextBlock Text="Good Night"/>
+                </StackPanel>
+            </ListViewItem>
+        </StackPanel>
+        <Border BorderBrush="White"
+                BorderThickness="0,0,0,1"
+                Opacity="0.2"
+                Margin="20,0"/>
         <ScrollViewer Grid.Row="1">
-            <ListView Margin="0,20,0,0">
+            <ListView Margin="0,8,0,0">
                 <ListViewItem>
                     <StackPanel Orientation="Horizontal" >
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE9D9;" />
