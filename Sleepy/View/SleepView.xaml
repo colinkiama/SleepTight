@@ -8,7 +8,8 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
 
-    <Grid Background="#333333">
+    <Grid Background="#333333"
+          Name="MainGrid">
         <StackPanel HorizontalAlignment="Center"
             VerticalAlignment="Center"
                     Name="sleepStackPanel">

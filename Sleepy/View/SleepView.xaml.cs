@@ -27,9 +27,14 @@ namespace Sleepy.View
         {
             this.InitializeComponent();
             sleepStackPanel.Fade(0,0).Start();
-            App.animationHelper.ScaleAnimCompleted += AnimationHelper_ScaleAnimCompleted;
         }
 
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            App.animationHelper.ScaleAnimCompleted += AnimationHelper_ScaleAnimCompleted;
+        }
         private async void AnimationHelper_ScaleAnimCompleted(object sender, EventArgs e)
         {
             await sleepStackPanel.Fade(1, 300).StartAsync();
