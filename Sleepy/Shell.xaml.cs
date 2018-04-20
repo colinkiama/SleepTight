@@ -1,5 +1,6 @@
 ﻿using Microsoft.Toolkit.Uwp.UI.Animations;
 using Sleepy.Enums;
+using Sleepy.Lists;
 using Sleepy.View;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,7 @@ namespace Sleepy
         #region Properties
 
         public bool CanGoBack { get => NavigationStack.Count > 0; }
+        public bool isFullViewActive { get => fullViewFrame.Content != null; }
 
         #endregion
 
@@ -56,10 +58,10 @@ namespace Sleepy
             switch (NavigationType)
             {
                 case NavType.NavigateTo:
-                   await NavigateToAsync(ViewType, parameter);
+                    await NavigateToAsync(ViewType, parameter);
                     break;
                 case NavType.NavigateBack:
-                   await GoBackAsync();
+                    await GoBackAsync();
                     break;
             }
         }
@@ -153,7 +155,7 @@ namespace Sleepy
             RaiseNavigatedEvent();
         }
 
-        private void AddCurrentPageToNavigationStack()
+        private void AddCurrentContentPageToNavigationStack()
         {
             NavigationStack.Push((Page)contentFrame.Content);
         }
@@ -168,9 +170,9 @@ namespace Sleepy
         {
             if (contentFrame?.CurrentSourcePageType != ViewType)
             {
+                bool isFullViewPage = CheckIfFullViewPage(ViewType);
                 AddCurrentPageToNavigationStack();
-                bool isSleepView = CheckIfViewIsSleepView(ViewType);
-                if (isSleepView)
+                if (isFullViewPage)
                 {
                     await HandleFullViewNavigationAsync(ViewType);
                 }
@@ -180,19 +182,48 @@ namespace Sleepy
                 }
                 RaiseNavigatedEvent();
             }
-          
+
+        }
+
+        private void AddCurrentPageToNavigationStack()
+        {
+            if (isFullViewActive)
+            {
+                AddCurrentFullViewPageToNavigationStack();
+            }
+            else
+            {
+                AddCurrentContentPageToNavigationStack();
+            }
+        }
+
+        private void AddCurrentFullViewPageToNavigationStack()
+        {
+            NavigationStack.Push((Page)fullViewFrame.Content);
         }
 
         private async Task HandleFullViewNavigationAsync(Type viewType)
         {
-            fullViewFrame.Navigate(viewType);
-            fullViewFrame.Visibility = Visibility.Visible;
-            await App.animationHelper.ScaleAnimation(fullViewFrame);
+            if (!isFullViewActive)
+            {
+                fullViewFrame.Navigate(viewType);
+                fullViewFrame.Visibility = Visibility.Visible;
+                await App.animationHelper.ScaleAnimation(fullViewFrame);
+            }
+            else
+            {
+                fullViewFrame.Navigate(viewType);
+                if (viewType == typeof(SleepSummaryView))
+                {
+                    NavigationStack.Clear();
+                }
+            }
+            RaiseNavigatedEvent();
         }
 
-        private bool CheckIfViewIsSleepView(Type viewType)
+        private bool CheckIfFullViewPage(Type viewType)
         {
-            return (viewType == typeof(SleepView));
+            return (FullViewPages.pageList.Contains(viewType));
         }
 
         private async Task GoBackAsync()
@@ -203,21 +234,31 @@ namespace Sleepy
                 Type pageType = pageToNavigateTo.GetType();
                 if (fullViewFrame.Content != null)
                 {
-                    await HandleFullViewFrameNavigateBackAsync();
+                    await HandleFullViewFrameNavigateBackAsync(pageType);
                 }
                 else
                 {
                     contentFrame.GoBack();
                 }
+
                 RaiseNavigatedEvent();
             }
         }
 
-        private async Task HandleFullViewFrameNavigateBackAsync()
+        private async Task HandleFullViewFrameNavigateBackAsync(Type pageType)
         {
-            await App.animationHelper.ScaleDownAnimation(fullViewFrame);
-            fullViewFrame.Visibility = Visibility.Collapsed;
-            fullViewFrame.Content = null;
+            bool isPrevPageFullView = CheckIfFullViewPage(pageType);
+            if (isPrevPageFullView)
+            {
+                fullViewFrame.GoBack();
+            }
+            else
+            {
+                await App.animationHelper.ScaleDownAnimation(fullViewFrame);
+                fullViewFrame.Visibility = Visibility.Collapsed;
+                fullViewFrame.Content = null;
+            }
+            
         }
         #endregion
     }

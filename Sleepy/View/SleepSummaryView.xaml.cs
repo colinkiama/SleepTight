@@ -1,5 +1,4 @@
-﻿using Microsoft.Toolkit.Uwp.UI.Animations;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,28 +20,11 @@ namespace Sleepy.View
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class SleepView : Page
+    public sealed partial class SleepSummaryView : Page
     {
-        public SleepView()
+        public SleepSummaryView()
         {
             this.InitializeComponent();
-            sleepStackPanel.Fade(0,0).Start();
-        }
-
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-            App.animationHelper.ScaleAnimCompleted += AnimationHelper_ScaleAnimCompleted;
-        }
-        private async void AnimationHelper_ScaleAnimCompleted(object sender, EventArgs e)
-        {
-            await sleepStackPanel.Fade(1, 300).StartAsync();
-        }
-
-        private void WakeUpButton_Click(object sender, RoutedEventArgs e)
-        {
-            Shell.Navigate(typeof(SleepSummaryView));
         }
     }
 }
