@@ -21,7 +21,8 @@
                    Margin="0,40,0,0"
                    FontSize="60"
                    FontWeight="SemiBold"/>
-        <RelativePanel Grid.Row="1"
+        <ScrollViewer Grid.Row="1">
+        <RelativePanel 
                        Margin="12,20,12,0"
                        Width="320">
             <StackPanel RelativePanel.AlignHorizontalCenterWithPanel="True"
@@ -38,31 +39,34 @@
 
             <StackPanel Name="StartTimeStackPanel"
                         RelativePanel.AlignVerticalCenterWithPanel="True"
-                        Margin="4,0,0,0">
+                        Margin="0,0,0,0">
                 <TextBlock Text="Start"
-                           FontSize="20"
+                           FontSize="32"
                            FontWeight="SemiBold"/>
                 <TextBlock Text="00:00"
                            TextAlignment="Center"
-                           Margin="0,2,0,0"/>
+                           Margin="0,2,0,0"
+                           FontSize="20"/>
             </StackPanel>
 
             <StackPanel Name="EndTimeStackPanel"
                         RelativePanel.AlignVerticalCenterWithPanel="True"
                         RelativePanel.AlignRightWithPanel="True"
-                        Margin="0,0,4,0">
+                        Margin="0,0,0,0">
                 <TextBlock Text="End"
-                           FontSize="20"
+                           FontSize="32"
                            FontWeight="SemiBold"/>
                 <TextBlock Text="08:00"
                            TextAlignment="Center"
-                           Margin="0,2,0,0"/>
+                           Margin="0,2,0,0"
+                           FontSize="20"/>
             </StackPanel>
 
 
             <StackPanel Name="RateSleepStackPanel"
                         RelativePanel.AlignVerticalCenterWithPanel="True"
-                        RelativePanel.AlignHorizontalCenterWithPanel="True">
+                        RelativePanel.AlignHorizontalCenterWithPanel="True"
+                        Margin="0,140,0,0">
                 <TextBlock Text="Rate Your Sleep"/>
                 <RatingControl Name="SleepQualityRatingControl"
                                Value="1"/>
@@ -77,6 +81,7 @@
                     Style="{ThemeResource ButtonRevealStyle}"/>
 
         </RelativePanel>
+        </ScrollViewer>
         <Button Name="FinishButton"
                 Content="Finish"
                 Style="{ThemeResource ButtonRevealStyle}"
