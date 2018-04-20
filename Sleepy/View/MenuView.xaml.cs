@@ -34,7 +34,8 @@ namespace Sleepy.View
             
         }
 
-        private void SleepButton_Click(object sender, RoutedEventArgs e)
+
+        private void GoodNightListViewItem_Tapped(object sender, TappedRoutedEventArgs e)
         {
             Shell.Navigate(typeof(SleepView));
         }

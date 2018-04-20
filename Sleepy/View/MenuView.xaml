@@ -34,7 +34,8 @@
                    VerticalAlignment="Top"/>
             <ListViewItem
                 Margin="0,20,0,0"
-                
+                Name="GoodNightListViewItem"
+                Tapped="GoodNightListViewItem_Tapped"
                 >
                 <StackPanel Orientation="Horizontal">
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEC46;"
