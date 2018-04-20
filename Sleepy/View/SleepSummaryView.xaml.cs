@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sleepy.Model;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,23 @@ namespace Sleepy.View
         public SleepSummaryView()
         {
             this.InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            var sleepCompleted = (Sleep)e.Parameter;
+            var sleepStartTime = sleepCompleted.SleepStart.TimeOfDay;
+            var sleepEndTime = sleepCompleted.SleepEnd.TimeOfDay;
+            var hoursSlept = sleepCompleted.HoursSleptFor;
+
+            SleepStartTextBlock.Text = $"{sleepStartTime.Hours}:{sleepStartTime.Minutes}";
+            SleepEndTextBlock.Text = $"{sleepEndTime.Hours}:{sleepEndTime.Minutes}";
+            HoursSleptTextBlock.Text = hoursSlept.ToString();
+
+
+
+
         }
 
         private void AddNoteButton_Click(object sender, RoutedEventArgs e)

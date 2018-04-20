@@ -1,4 +1,5 @@
 ﻿using Microsoft.Toolkit.Uwp.UI.Animations;
+using Sleepy.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,9 +24,11 @@ namespace Sleepy.View
     /// </summary>
     public sealed partial class SleepView : Page
     {
+        DateTime sleepStart;
         public SleepView()
         {
             this.InitializeComponent();
+            sleepStart = DateTime.Now;
             sleepStackPanel.Fade(0,0).Start();
         }
 
@@ -42,7 +45,9 @@ namespace Sleepy.View
 
         private void WakeUpButton_Click(object sender, RoutedEventArgs e)
         {
-            Shell.Navigate(typeof(SleepSummaryView));
+            var sleepEnd = DateTime.Now;
+            Sleep incompleteSleep = new Sleep(sleepStart, sleepEnd);
+            Shell.Navigate(typeof(SleepSummaryView), incompleteSleep);
         }
     }
 }

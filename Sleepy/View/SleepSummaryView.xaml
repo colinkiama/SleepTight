@@ -34,7 +34,8 @@
                            FontSize="36"/>
                 <TextBlock Text="8"
                             FontSize="28"
-                           TextAlignment="Center"/>
+                           TextAlignment="Center"
+                           Name="HoursSleptTextBlock"/>
             </StackPanel>
 
             <StackPanel Name="StartTimeStackPanel"
@@ -46,7 +47,8 @@
                 <TextBlock Text="00:00"
                            TextAlignment="Center"
                            Margin="0,2,0,0"
-                           FontSize="20"/>
+                           FontSize="20"
+                           Name="SleepStartTextBlock"/>
             </StackPanel>
 
             <StackPanel Name="EndTimeStackPanel"
@@ -59,7 +61,8 @@
                 <TextBlock Text="08:00"
                            TextAlignment="Center"
                            Margin="0,2,0,0"
-                           FontSize="20"/>
+                           FontSize="20"
+                           Name="SleepEndTextBlock"/>
             </StackPanel>
 
 
@@ -79,8 +82,18 @@
                     Margin="0,20,0,0"
                     Background="{ThemeResource SystemControlBackgroundAccentRevealBorderBrush}"
                     Style="{ThemeResource ButtonRevealStyle}"/>
+            
+                <controls:HeaderedTextBlock 
+                    Name="WrittenNoteTextBlock"
+                    Header="Notes:"
+                    Orientation="Horizontal"
+                       Visibility="Collapsed"
+                           Text="Hey"
+                           Margin="0,20,0,0"
+                           RelativePanel.AlignHorizontalCenterWith="AddNoteButton"
+                           RelativePanel.AlignVerticalCenterWith="AddNoteButton"/>
 
-        </RelativePanel>
+            </RelativePanel>
         </ScrollViewer>
         <Button Name="FinishButton"
                 Content="Finish"

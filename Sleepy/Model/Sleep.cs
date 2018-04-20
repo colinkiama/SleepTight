@@ -19,6 +19,12 @@ namespace Sleepy.Model
         #endregion
 
         #region Constructors
+        public Sleep(DateTime sleepStart, DateTime sleepEnd)
+        {
+            SleepStart = sleepStart;
+            SleepEnd = sleepEnd;
+        }
+
         public Sleep(DateTime sleepStart, DateTime sleepEnd, SleepQuality qualityOfSleep)
         {
             SleepStart = sleepStart;

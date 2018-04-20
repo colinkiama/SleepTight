@@ -174,11 +174,11 @@ namespace Sleepy
                 AddCurrentPageToNavigationStack();
                 if (isFullViewPage)
                 {
-                    await HandleFullViewNavigationAsync(ViewType);
+                    await HandleFullViewNavigationAsync(ViewType, Parameter);
                 }
                 else
                 {
-                    contentFrame.Navigate(ViewType);
+                    contentFrame.Navigate(ViewType, Parameter);
                 }
                 RaiseNavigatedEvent();
             }
@@ -202,7 +202,7 @@ namespace Sleepy
             NavigationStack.Push((Page)fullViewFrame.Content);
         }
 
-        private async Task HandleFullViewNavigationAsync(Type viewType)
+        private async Task HandleFullViewNavigationAsync(Type viewType, object parameter)
         {
             if (!isFullViewActive)
             {
@@ -212,7 +212,7 @@ namespace Sleepy
             }
             else
             {
-                fullViewFrame.Navigate(viewType);
+                fullViewFrame.Navigate(viewType, parameter);
                 if (viewType == typeof(SleepSummaryView))
                 {
                     NavigationStack.Clear();
