@@ -10,11 +10,20 @@
     xmlns:Charting="using:WinRTXamlToolkit.Controls.DataVisualization.Charting"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Dictionaries/Dictionary1.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
     <Page.DataContext>
         <vm:TrackSleepViewModel x:Name="ViewModel"/>
     </Page.DataContext>
     <Grid Background="#333333">
-        <Charting:Chart  
+        <Charting:Chart
+            Style="{ThemeResource CustomChartStyle}"
+            
 x:Name="ColumnChart"  
 HorizontalAlignment="Stretch"  
 VerticalAlignment="Stretch"  
@@ -27,7 +36,8 @@ DependentValuePath="HoursSleptFor"
 CharacterSpacing="20"  
 IsSelectionEnabled="True"
 Title="Hours Slept For"           
-ItemsSource="{x:Bind ViewModel.CurrentSleepData}"/>
+ItemsSource="{x:Bind ViewModel.CurrentSleepData}"
+         />
         </Charting:Chart>
         <StackPanel HorizontalAlignment="Center"
                     VerticalAlignment="Center"

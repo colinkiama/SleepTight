@@ -167,6 +167,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Dictionaries\Dictionary1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Shell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
