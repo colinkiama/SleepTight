@@ -34,6 +34,7 @@ namespace Sleepy.View
             if (ViewModel.CurrentSleepData.Count < 1)
             {
                 this.ColumnChart.Visibility = Visibility.Collapsed;
+                AddSleepDataChartActiveButton.Visibility = Visibility.Collapsed;
             }
             else
             {

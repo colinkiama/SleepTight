@@ -39,6 +39,21 @@ Title="Hours Slept For"
 ItemsSource="{x:Bind ViewModel.CurrentSleepData}"
          />
         </Charting:Chart>
+        <Button Name="AddSleepDataChartActiveButton"
+                Click="AddSleepDataButton_Click"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Margin="0,40,40,0"
+                Foreground="White"
+                Style="{ThemeResource TextBlockButtonStyle}">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal">
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE109;" />
+                    <TextBlock Text="Add Sleep Data" 
+                               Margin="16,0,0,0"/>
+                </StackPanel>
+            </Button.Content>
+        </Button>
         <StackPanel HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Name="NoSleepTrackStackPanel">
