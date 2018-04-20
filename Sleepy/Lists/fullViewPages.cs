@@ -9,6 +9,6 @@ namespace Sleepy.Lists
 {
     public class FullViewPages
     {
-        public static Type[] pageList  { get; private set; } = { typeof(SleepView), typeof(SleepSummaryView) };
+        public static Type[] pageList { get; private set; } = { typeof(SleepView), typeof(SleepSummaryView) };
     }
 }

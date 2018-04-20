@@ -26,5 +26,10 @@ namespace Sleepy.View
         {
             this.InitializeComponent();
         }
+
+        private void AddNoteButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

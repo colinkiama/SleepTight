@@ -5,9 +5,86 @@
     xmlns:local="using:Sleepy.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="#333333">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
 
+        <TextBlock Text="Summary"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   Margin="0,40,0,0"
+                   FontSize="60"
+                   FontWeight="SemiBold"/>
+        <RelativePanel Grid.Row="1"
+                       Margin="12,20,12,0"
+                       Width="320">
+            <StackPanel RelativePanel.AlignHorizontalCenterWithPanel="True"
+                Margin="0,20,0,0"
+                        Orientation="Vertical"
+                        Name="HoursSleptStackPanel">
+                <TextBlock Text="Hours Slept For:"
+                           FontWeight="SemiBold"
+                           FontSize="36"/>
+                <TextBlock Text="8"
+                            FontSize="28"
+                           TextAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel Name="StartTimeStackPanel"
+                        RelativePanel.AlignVerticalCenterWithPanel="True"
+                        Margin="4,0,0,0">
+                <TextBlock Text="Start"
+                           FontSize="20"
+                           FontWeight="SemiBold"/>
+                <TextBlock Text="00:00"
+                           TextAlignment="Center"
+                           Margin="0,2,0,0"/>
+            </StackPanel>
+
+            <StackPanel Name="EndTimeStackPanel"
+                        RelativePanel.AlignVerticalCenterWithPanel="True"
+                        RelativePanel.AlignRightWithPanel="True"
+                        Margin="0,0,4,0">
+                <TextBlock Text="End"
+                           FontSize="20"
+                           FontWeight="SemiBold"/>
+                <TextBlock Text="08:00"
+                           TextAlignment="Center"
+                           Margin="0,2,0,0"/>
+            </StackPanel>
+
+
+            <StackPanel Name="RateSleepStackPanel"
+                        RelativePanel.AlignVerticalCenterWithPanel="True"
+                        RelativePanel.AlignHorizontalCenterWithPanel="True">
+                <TextBlock Text="Rate Your Sleep"/>
+                <RatingControl Name="SleepQualityRatingControl"
+                               Value="1"/>
+            </StackPanel>
+            <Button Name="AddNoteButton"
+                    Click="AddNoteButton_Click"
+                    Content="Add Note"
+                    RelativePanel.Below="RateSleepStackPanel"
+                    RelativePanel.AlignHorizontalCenterWith="RateSleepStackPanel"
+                    Margin="0,20,0,0"
+                    Background="{ThemeResource SystemControlBackgroundAccentRevealBorderBrush}"
+                    Style="{ThemeResource ButtonRevealStyle}"/>
+
+        </RelativePanel>
+        <Button Name="FinishButton"
+                Content="Finish"
+                Style="{ThemeResource ButtonRevealStyle}"
+                Background="{ThemeResource SystemControlBackgroundAccentRevealBorderBrush}"
+                Width="150"
+                Height="50"
+                Grid.Row="2"
+                HorizontalAlignment="Center"
+                Margin="32"/>
     </Grid>
 </Page>
